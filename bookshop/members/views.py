@@ -39,10 +39,8 @@ class ValidateCode(TemplateView):
     template_name = 'members/registration_success.html'
 
 
-# Hurry UP!!! April 10
+# Hurry UP!!! Before Oct/10
 class ValidateActivationCode(TemplateView):
-    # Create a new template and extract
-    # these two tempaltes to base template
 
     def get_context_data(self, **kwargs):
         auth_code = self.kwargs.get('auth_code') # The dict which passed to the as_view method

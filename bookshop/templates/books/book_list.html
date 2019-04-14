@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-sm-3 col-lg-2 hidden-xs">
+      <!-- category list -->
+      <div class="list-group sidebar-category">
+        {% for category in view.categories %}
+          <a class="list-group-item {% if view.kwargs.category == category.name %}active{% endif %}"
+             href="{% url 'book_list' category=category.name %}"> {{ category.name }}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="col-sm-9 col-lg-offset-1">
+      {% if view.kwargs.category %}
+        <h3 class="h4"> {{ view.kwargs.category }}</h3>
+      {% endif %}
+      <!-- product list -->
+      <div class="row">
+        {% for book in book_list %}
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="product product-brief">
+              <a href="{% url 'book_detail' pk=book.pk %}" class="thumbnail">
+                <img src="http://placehold.it/150x200">
+              </a>
+              <a href="{% url 'book_detail' pk=book.pk %}">{{ book.name|truncatechars:25 }}</a>
+              <div class="product-label author">作者: <span class="value">{{ book.author }}</span></div>
+              <div>
+               <span class="product-label original-price">原價: <span class="value">{{ book.original_price }}</span></span>
+                <span class="product-label price">特價: <span class="value">{{ book.price }}</span></span>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div><!-- end of product list -->
+
+      {% if is_paginated %}
+      <!-- pagination -->
+      <div class="row">
+        <nav>
+          <ul class="pager">
+            {% if page_obj.has_previous %}
+              <li><a href="?page={{ page_obj.previous_page_number }}"><span aria-hidden="true">&larr;</span> 上一頁</a></li>
+            {% else %}
+              <li class="disabled"><a href="#"><span aria-hidden="true">&larr;</span> 上一頁</a></li>
+            {% endif %}
+
+            <li> {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</li>
+
+            {% if page_obj.has_next %}
+              <li><a href="?page={{ page_obj.next_page_number }}">下一頁<span aria-hidden="true">&rarr;</span></a></li>
+            {% else %}
+              <li class="disabled"><a href="#">下一頁<span aria-hidden="true">&rarr;</span></a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div><!-- end of pagination--->
+      {% endif %}
+
+    </div>
+
+  </div>
+{% endblock content %}

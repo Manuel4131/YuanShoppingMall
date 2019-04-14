@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block navbar %}{% endblock %}
+
+{% block content %}
+  <div class="row">&nbsp;</div>
+  <div class="row">&nbsp;</div>
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <h2 class="text-center login-title">Sign Up</h2>
+    </div>
+  </div>
+  <div class="row">&nbsp;</div>
+  <div class="row">
+    <div class="col-md-offset-4 col-md-4">
+      <form method="post" action="{% url 'members:registration' %}">
+        {% csrf_token %}
+        <div class="form-group">
+          {{ form.username }}
+          {% if form.username.errors %}
+            <div class="alert alert-warning" role="alert">{{ form.username.errors }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.first_name }}
+          {% if form.first_name.errors %}
+            <span class="alert alert-warning" role="alert">{{ form.first_name.errors }}</span>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.last_name }}
+          {% if form.last_name.errors %}
+            <div class="alert alert-warning" role="alert">{{ form.last_name.errors }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.email }}
+          {% if form.email.errors %}
+            <div class="alert alert-warning" role="alert">{{ form.email.errors }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.password1 }}
+          {% if form.password1.errors %}
+            <div class="alert alert-warning" role="alert">{{ form.password1.errors }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.password2 }}
+          {% if form.password2.errors %}
+            <div class="alert alert-warning" role="alert">{{ form.password2.errors }}</div>
+          {% endif %}
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+        <input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{% url 'home' %}{% endif %}" />
+      </form>
+    </div>
+  </div>
+  <div class="row">&nbsp;</div>
+  {% if form.non_field_errors %}
+    <div class="row">
+      <div class="col-md-offset-4 col-md-4">
+        {% for error in form.non_field_errors %}
+          <div class="alert alert-warning" role="alert">{{ error }}</div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block navbar %}{% endblock %}
+
+{% block content %}
+  <div class="row">&nbsp;</div>
+  <div class="row"> </div>
+  <div class="row">&nbsp;</div>
+  <div class="row">&nbsp;</div>
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <h2 class="text-center login-title">Congratulations!</h2>
+      <div class="alert alert-success" role="alert">Your account is activated successfully.
+       Please login again. <a href="{% url 'members:login' %}" class="alert-link">here</a> to sign in.</div>
+    </div>
+  </div>
+{% endblock %}
